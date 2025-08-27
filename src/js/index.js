@@ -5,7 +5,7 @@
   var seed = null;
   var bip32RootKey = null;
   var bip32ExtendedKey = null;
-  var network = libs.bitcoin.networks.bitcoin;
+  var network = libs.bitcoin.networks.litecoin;
   var addressRowTemplate = $("#address-row-template");
 
   var showIndex = true;
@@ -536,7 +536,7 @@
       // try parsing using base network params
       // The bip85 lib only understands xpubs, so compute it
       var rootKey = libs.bitcoin.HDNode.fromBase58(rootKeyBase58, network);
-      rootKey.keyPair.network = libs.bitcoin.networks["bitcoin"];
+      rootKey.keyPair.network = network;
       var master = libs.bip85.BIP85.fromBase58(rootKey.toBase58());
 
       var result;
@@ -2343,29 +2343,6 @@
 
   var networks = [
     {
-      name: "BTC - Bitcoin",
-      onSelect: function () {
-        network = libs.bitcoin.networks.bitcoin;
-        setHdCoin(0);
-      },
-    },
-    {
-      name: "BTC - Bitcoin RegTest",
-      onSelect: function () {
-        network = libs.bitcoin.networks.regtest;
-        // Using hd coin value 1 based on bip44_coin_type
-        // https://github.com/chaintope/bitcoinrb/blob/f1014406f6b8f9b4edcecedc18df70c80df06f11/lib/bitcoin/chainparams/regtest.yml
-        setHdCoin(1);
-      },
-    },
-    {
-      name: "BTC - Bitcoin Testnet",
-      onSelect: function () {
-        network = libs.bitcoin.networks.testnet;
-        setHdCoin(1);
-      },
-    },
-    {
       name: "LTC - Litecoin",
       onSelect: function () {
         network = libs.bitcoin.networks.litecoin;
@@ -2377,7 +2354,7 @@
       name: "LTCt - Litecoin Testnet",
       onSelect: function () {
         network = libs.bitcoin.networks.litecointestnet;
-        setHdCoin(1);
+        setHdCoin(2);
         DOM.litecoinLtubContainer.removeClass("hidden");
       },
     },
